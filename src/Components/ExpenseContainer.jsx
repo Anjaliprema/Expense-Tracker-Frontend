@@ -19,7 +19,7 @@ function ExpenseContainer() {
       const data = await response.json();
       setExpense(data);
     } catch (error) {
-      console.error("Failed to fech", error);
+      console.error("Failed to fetch", error);
     }
     setLoading(false);
   };
