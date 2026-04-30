@@ -7,6 +7,7 @@ import BalanceContainer from "./BalanceContainer.jsx";
 // import { Link } from "react-router-dom";
 
 function ExpenseContainer() {
+  const BASE_URL = import.meta.env.VITE_API_URL;
   const [expense, setExpense] = useState([]);
   const [loading, setLoading] = useState(true); //loading - To manage fetch
   const [itemToEdit,setItemToEdit] = useState(null)
@@ -15,7 +16,7 @@ function ExpenseContainer() {
   const fetchExpense = async () => {
     setLoading(true); //if it is false then it only give the old data not a new added data
     try {
-      const response = await fetch("http://localhost:3000/expense"); //fetch dackend data
+      const response = await fetch(`${BASE_URL}/expense`); //fetch dackend data
       const data = await response.json();
       setExpense(data);
     } catch (error) {
@@ -48,7 +49,7 @@ function ExpenseContainer() {
 
   const addExpense = async (title, amount) => {
     try {
-      const response = await fetch("http://localhost:3000/expense", {
+      const response = await fetch(`${BASE_URL}/expense`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, amount }), //to convert JSON to string of title, amount
@@ -70,7 +71,7 @@ function ExpenseContainer() {
 
   const deleteExpense = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/expense/${id}`, {
+     const response = await fetch(`${BASE_URL}/expense/${id}`, {
         //${id} is used to delete a specific item used this id .
         method: "DELETE",
       });
@@ -104,7 +105,7 @@ function ExpenseContainer() {
 //backend to frontend fetch data 
   const editExpense = async (id, title, amount) => {
     try {
-      const response = await fetch(`http://localhost:3000/expense/${id}`, {
+      const response = await fetch(`${BASE_URL}/expense/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, amount }),
